@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import  todoStore  from '../../../Stores/Store'
+import  todoStore  from '../Stores/Store'
 import UpdateTodo from './UpdateTodo';
+
 
 interface TodoListProps {
   todoStore: typeof todoStore;
+  
 }
 
 const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
@@ -14,8 +16,10 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
   const [show, setshow] = useState(false);
   const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
   const [showadd, setshowadd] = useState(false)
+  const [data, setdata] = useState([]);
 
   let staus = todoStore.status;
+
 
   const handleUpdateClick = (todoId: number) => {
     setSelectedTodoId(todoId);
@@ -25,6 +29,13 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
     setSelectedTodoId(null);
   };
  
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('task');
+    const parsedData = storedTasks ? JSON.parse(storedTasks) : [];
+    setdata(parsedData);
+  }, []);
+
   return (
     <div className="addtodo-container sm:m-auto max-w-sm min-w-min p-4">
       <p className='text-xl text-zinc-950 font-extrabold font-mono'>Schedule Plan  For Today</p>
@@ -46,8 +57,8 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
         </tr>
       </thead>
       <tbody className='w-full text-gray-500'>
-        {todoStore.todos.map((task, id) => (
-          <tr key={task.id} className="hover:bg-gray-100">
+      {[...todoStore.todos, ...data].map((task, id) => (
+          <tr key={id} className="hover:bg-gray-100">
             <td className="border border-gray-300 px-2 py-1">{id}</td>
             <td className="border border-gray-300 px-2 py-1">{task.title}</td>
             <td className="border border-gray-300 px-2 py-1">{task.description}</td>

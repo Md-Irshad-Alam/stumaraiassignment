@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import  todoStore  from '../../../Stores/Store'
+import  todoStore  from '../Stores/Store'
 
 interface UpdateTodoProps {
   todoId: number;
@@ -18,6 +18,8 @@ const UpdateTodo: React.FC<UpdateTodoProps> = observer(({ todoId, handleCloseUpd
     setNewDescription('');
     handleCloseUpdate();
   };
+ 
+ 
 
   return (
     <div className="fixed  inset-0 flex flex-col items-center justify-center  z-50 bg-gray-500 bg-opacity-75 text-gray-600">
