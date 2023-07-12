@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import {todoStore} from '../MST-Modle/Store'
 import UpdateTodo from './UpdateTodo';
-// import TodoForm from './TodoForm';
-
 
 interface TodoListProps {
   todoStore: typeof todoStore;
@@ -61,7 +59,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
             </td>
 
             <td
-                className="border border-gray-600 px-2 py-1 cursor-pointer hover:bg-gray-600"
+                className="border  border-gray-600 px-2 py-1 cursor-pointer hover:bg-gray-600"
               >
                 {selectedTodoId === task.id ? (
                   <UpdateTodo todoId={task.id} handleCloseUpdate={handleCloseUpdate} />

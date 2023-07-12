@@ -1,5 +1,11 @@
 
-
+import AddTodo from './Componants/Todolist/AddTodo'
+import { todoStore } from './Componants/MST-Modle/Store'
 export default function Page() {
-  return <h1>Hello, Next.js!</h1>
+  return (
+    <div  className='todo-maincontainer'>
+      <AddTodo todoStore={todoStore}/>
+      
+    </div>
+  )
 }
