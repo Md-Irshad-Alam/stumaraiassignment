@@ -1,7 +1,7 @@
-
+import React from 'react';
 import AddTodo from './Componants/Todolist/AddTodo'
 import { todoStore } from './Componants/MST-Modle/Store'
-export default function Page() {
+function Page() {
   return (
     <div  className='todo-maincontainer'>
       <AddTodo todoStore={todoStore}/>
@@ -9,3 +9,4 @@ export default function Page() {
     </div>
   )
 }
+export default Page;
