@@ -14,14 +14,14 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
   const [title, setTitle] = useState('');
   const [desc, setDec] = useState('');
   const [show, setshow] = useState(false);
-  const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
+  const [selectedTodoId, setSelectedTodoId] = useState<String | null>(null);
   const [showadd, setshowadd] = useState(false)
   const [data, setdata] = useState([]);
 
   let staus = todoStore.status;
 
 
-  const handleUpdateClick = (todoId: number) => {
+  const handleUpdateClick = (todoId: String) => {
     setSelectedTodoId(todoId);
   };
 
@@ -30,11 +30,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
   };
  
 
-  useEffect(() => {
-    const storedTasks = localStorage.getItem('task');
-    const parsedData = storedTasks ? JSON.parse(storedTasks) : [];
-    setdata(parsedData);
-  }, []);
+  
 
   return (
     <div className="addtodo-container sm:m-auto max-w-sm min-w-min p-4">
@@ -57,14 +53,17 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
         </tr>
       </thead>
       <tbody className='w-full text-gray-500'>
-      {[...todoStore.todos, ...data].map((task, id) => (
+      {todoStore.todos.map((task, id) => (
           <tr key={id} className="hover:bg-gray-100">
             <td className="border border-gray-300 px-2 py-1">{id}</td>
             <td className="border border-gray-300 px-2 py-1">{task.title}</td>
             <td className="border border-gray-300 px-2 py-1">{task.description}</td>
             <td
               className="border border-gray-300 px-2 py-1 cursor-pointer hover:bg-gray-200"
-              onClick={() => todoStore.togglestatus(task.id)}
+              onClick={() => {
+               console.log(task._id)
+                todoStore.toggleStatus(task._id)
+              }}
             >
               {task.completed ? 'Completed' : 'Pending'}
             </td>
@@ -72,11 +71,11 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
             <td
                 className="border  border-gray-600 px-2 py-1 cursor-pointer hover:bg-gray-600"
               >
-                {selectedTodoId === task.id ? (
-                  <UpdateTodo todoId={task.id} handleCloseUpdate={handleCloseUpdate} />
+                {selectedTodoId === task._id ? (
+                  <UpdateTodo todoId={task._id} handleCloseUpdate={handleCloseUpdate} />
                 ) : (
                   <button
-                    onClick={() => handleUpdateClick(task.id)}
+                    onClick={() => handleUpdateClick(task._id)}
                     className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
                   >
                     Edit
@@ -86,7 +85,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
 
             <td className="border border-gray-300 px-2 py-1">
               <button
-                onClick={() => todoStore.deleteTodo(task.id)}
+                onClick={() => todoStore.deleteTodo(task._id)}
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
               >
                 Delete

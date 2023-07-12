@@ -1,120 +1,115 @@
-
 import { action, computed, makeObservable, observable } from "mobx";
-import { json } from "node:stream/consumers";
-import { todo } from "node:test";
-import React from "react";
+import axios from "axios";
+import { ObjectId } from 'mongodb';
 interface TodoItems {
-    id: number;
-    title: string;
-    description: string;
-    completed: boolean;
+  _id: String;
+  title: string;
+  description: string;
+  completed: boolean;
 }
 
 class TodoStoreImp {
-    todos : TodoItems[] = [];
-    
-    constructor(){
-        makeObservable(this, {
-            todos:observable,
-            togglestatus:action,
-            updateTodo: action,
-            deleteTodo: action,
-            status:computed,
-        })
-        // this.loadTask();
-       
-    }
-// store in localstoreage 
-    storeinlocal(){
-      localStorage.setItem("task", JSON.stringify(this.todos));
+  todos: TodoItems[] = [];
 
-    }
-
-
-    // addTodo(title:string, description:string){
-      
-    //     const items: TodoItems ={
-    //         id: Math.floor(Math.random() * 100 ),
-    //         title,
-    //        description,
-    //        completed:false
-    //     };
-    //     this.todos.push(items)
-    //     this.storeinlocal();
-    // }
-    addTodo = (title: string, description: string) => {
-        const items: TodoItems = {
-          id: Math.floor(Math.random() * 100),
-          title,
-          description,
-          completed: false,
-        };
-        
-      
-        // Retrieve existing tasks from localStorage
-        const storedTasks = localStorage.getItem("task");
-        const existingTasks = storedTasks ? JSON.parse(storedTasks) : [];
-      
-        // Merge the existing tasks with the new task
-        const updatedTasks = [...existingTasks, items];
-      
-        // Save the updated tasks to localStorage
-        localStorage.setItem("task", JSON.stringify(updatedTasks));
-        this.storeinlocal();
-        this.todos.push(items);
-      };
-
-    togglestatus(id:number){
-        const task = this.todos.find(item => item.id === id);
-        console.log(task)
-        if (task) {
-            task.completed = !task.completed;
-            this.storeinlocal();
-        } 
-       
-    }
-
-        updateTodo = (id: number, newTitle: string, newDescription: string) => {
-            const task = this.todos.find((item) => item.id === id);
-            if (task) {
-            task.title = newTitle;
-            task.description = newDescription;
-            this.storeinlocal();
-            }
-        };
-
-    
-      deleteTodo = (id: number) => {
-        const index = this.todos.findIndex((item) => item.id === id);
-        if (index >= 0) {
-          this.todos.splice(index, 1);
-          this.storeinlocal();
-        }
-      };
-   
-
-    // load data when the page get closed 
-
-    // loadTask() {
-    //     if (typeof window !== "undefined") {
-    //     const storedTasks = localStorage.getItem("task");
-    //     this.todos = storedTasks ? JSON.parse(storedTasks) : [];
-    //     }
-    // }
-    
-   get status(){
-    let completed = 0, remaining =0;
-    this.todos.forEach(todo=> {
-        if(todo.completed){
-            completed++;
-        }else{
-            remaining ++;
-        }
+  constructor() {
+    makeObservable(this, {
+      todos: observable,
+      toggleStatus: action,
+      updateTodo: action,
+      deleteTodo: action,
+      status: computed,
     });
-    return {completed, remaining}
-   }
+    this.loadTasks();
+  }
+
+  addTodo = async (title: string, description: string) => {
+    try {
+      const newItem: TodoItems = {
+        _id: String(Math.floor(Math.random() * 100)),
+        title,
+        description,
+        completed: false,
+      };
+
+      const response = await axios.post("http://localhost:8085/todo/add", newItem);
+      const createdTodo = response.data;
+
+      this.todos.push(createdTodo);
+    } catch (error) {
+      console.error("Error adding todo:", error);
+    }
+  };
+
+  toggleStatus = async (_id: String) => {
+    try {
+      const todo = this.todos.find((item) => item._id === _id);
+      console.log(_id);
+  
+      if (todo) {
+        todo.completed = !todo.completed;
+        await axios.put(`http://localhost:8085/todo/toggle/${_id}`, todo);
+      } else {
+        console.error(`Todo not found with _id: ${_id}`);
+      }
+    } catch (error) {
+      console.error("Error toggling todo status:", error);
+    }
+  };
+  
+
+  updateTodo = async (_id: String, newTitle: string, newDescription: string) => {
+    try {
+      const todo = this.todos.find((item) => item._id == _id);
+      if (todo) {
+        todo.title = newTitle;
+        todo.description = newDescription;
+
+        await axios.put(`http://localhost:8085/todo/edit/${_id}`, todo);
+      }
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
+  };
+
+  deleteTodo = async (_id: String) => {
+    try {
+      await axios.delete(`http://localhost:8085/todo/remove/${_id}`);
+
+      const index = this.todos.findIndex((item) => item._id === _id);
+      if (index >= 0) {
+        this.todos.splice(index, 1);
+      }
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
+  };
+
+  loadTasks = async () => {
+
+    if (typeof window !== "undefined") {
+    try {
+      const response = await axios.get("http://localhost:8085/todo/getAll");
+      this.todos = response.data;
+      console.log(response.data)
+    } catch (error) {
+      console.error("Error loading tasks:", error);
+    }
+  }
+  };
+
+  get status() {
+    let completed = 0,
+      remaining = 0;
+    this.todos.forEach((todo) => {
+      if (todo.completed) {
+        completed++;
+      } else {
+        remaining++;
+      }
+    });
+    return { completed, remaining };
+  }
 }
 
 const todoStore = new TodoStoreImp();
-export default todoStore
-
+export default todoStore;

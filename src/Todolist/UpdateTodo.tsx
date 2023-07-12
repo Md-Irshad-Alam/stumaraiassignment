@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import  todoStore  from '../Stores/Store'
 
 interface UpdateTodoProps {
-  todoId: number;
+  todoId: String;
   handleCloseUpdate: () => void;
 }
 
