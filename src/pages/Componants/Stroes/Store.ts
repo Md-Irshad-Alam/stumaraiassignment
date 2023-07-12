@@ -89,5 +89,6 @@ loadTask() {
    }
 }
 
-export const todoStore = new TodoStoreImp();
+const todoStore = new TodoStoreImp();
+export default todoStore
 
