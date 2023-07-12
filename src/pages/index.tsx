@@ -1,6 +1,6 @@
 import React from 'react';
 import AddTodo from './Componants/Todolist/AddTodo'
-import { todoStore } from './Componants/MST-Modle/Store'
+import { todoStore } from './Componants/Stroes/Store'
 function Page() {
   return (
     <div  className='todo-maincontainer'>

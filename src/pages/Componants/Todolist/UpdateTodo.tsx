@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { todoStore } from '../MST-Modle/Store';
+import { todoStore } from '../Stroes/Store';
 
 interface UpdateTodoProps {
   todoId: number;
