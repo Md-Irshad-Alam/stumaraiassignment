@@ -31,7 +31,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
     <div className="addtodo-container sm:m-auto max-w-sm min-w-min p-4">
       <p className='text-xl text-zinc-950 font-extrabold font-mono'>Schedule Plan  For Today</p>
     
-    <div className='text-md text-zinc-950 font-bold'>
+    <div className='text- text-zinc-950 font-bold'>
     <p>Completed: {staus.completed}</p>
     <p>Remaining: {staus.remaining}</p>
     </div> 

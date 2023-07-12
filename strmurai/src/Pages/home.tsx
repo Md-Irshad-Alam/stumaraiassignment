@@ -1,6 +1,6 @@
 import React from 'react'
-import AddTodo from './Componants/Todolist/AddTodo'
-import { todoStore } from './Componants/MST-Modle/Store'
+import AddTodo from '../Componants/Todolist/AddTodo'
+import { todoStore } from '../Componants/MST-Modle/Store'
 
 function home() {
   return (
