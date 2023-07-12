@@ -1,6 +1,6 @@
 import React from 'react';
 import AddTodo from './Componants/Todolist/AddTodo'
-import { todoStore } from './Componants/Stroes/Store'
+import  todoStore  from '../Stores/Store'
 function Page() {
   return (
     <div  className='todo-maincontainer'>

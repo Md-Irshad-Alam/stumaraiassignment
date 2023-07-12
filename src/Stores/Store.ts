@@ -1,8 +1,8 @@
-import React from "react";
+
 import { action, computed, makeObservable, observable } from "mobx";
 import { json } from "node:stream/consumers";
 import { todo } from "node:test";
-
+import React from "react";
 interface TodoItems {
     id: number;
     title: string;
@@ -89,5 +89,6 @@ loadTask() {
    }
 }
 
-export const todoStore = new TodoStoreImp();
+const todoStore = new TodoStoreImp();
+export default todoStore
 
