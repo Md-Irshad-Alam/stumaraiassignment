@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+#Project Name
+ ## Todo App
+ 
+# Overview
+ The project is about the todo app, in this app, a user can perform the following things 
+ add their tasks: 
+ Update the tasks :
+  Change the status of the tasks
+  Trace the complete and uncompleted  tasks
+ Able to delete the tasks. 
+  
+## Note: - In this repo, there are multiple branches 
+       ## Clint's side code is in the main branch
+        ## The backend Code is in the Master branch 
 
-First, run the development server:
+       
+## Note: I deployed the backend on  rednder.com the server will take multiple seconds to load please bare with the application 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# Tech Stack
+# Client Side:
+1. Next.js: Next.js is a React framework that provides server-side rendering (SSR), static site generation (SSG), and other advanced features for building modern web applications. It helps in creating fast and optimized client-side experiences.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Tailwind CSS: Tailwind CSS is a utility-first CSS framework that allows you to rapidly build custom user interfaces. It provides a set of pre-defined utility classes that can be used to style your components and create responsive designs.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Mobx State Tree (MST): Mobx State Tree is a state management library that helps in managing the state of your application. It provides a structured and intuitive way to define your application's data model and handles state changes efficiently.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Server:
+  4. MongoDB: MongoDB is a NoSQL database that provides a flexible and scalable solution for storing and retrieving data. It allows you to 
+   store data in a JSON-  like format, making it easy to work with for JavaScript-based applications.
+   
+  5.  Express.js: Express.js is a minimalistic and flexible Node.js framework that simplifies the process of building web 
+   applications and APIs. It provides a set of robust features and middleware for handling HTTP requests, routing, and more.
+   
+  6. Nodemon: Nodemon is a development tool that automatically restarts your Node.js application when changes are detected.
+      It helps in speeding up the development process by eliminating the need to manually restart the server after code modifications.
+   
+   These technologies work together to create a full-stack web application where Next.js handles the client-side rendering, Tailwind CSS provides styling capabilities, MST manages the application state, MongoDB acts as the database, Express.js handles server-side logic, and Nodemon facilitates the development process by auto-restarting the server.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## screenshots.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  ## Add todo UI
+   ![image](https://github.com/MyHobbies0/stumaraiassignment/assets/113013301/3062ef19-937b-4db6-85ed-dcd007f94b4c)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ## Update Todo UI
+   ![image](https://github.com/MyHobbies0/stumaraiassignment/assets/113013301/0d6ecb91-e3cf-42b8-bcf8-a0fc631a6f1f)
 
-## Deploy on Vercel
+   
+  
+API Documentation
+## API 
+ 
+  ## https://test-osum.onrender.com/
+  # End point 
+      /todo/add
+      /todo/toggle
+      /todo/edit
+      /todo/delete
+      
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contact
+Email id: almairsh0205@gmail.com
+Linkedin : 
