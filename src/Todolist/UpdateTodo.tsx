@@ -12,12 +12,17 @@ const UpdateTodo: React.FC<UpdateTodoProps> = observer(({ todoId, handleCloseUpd
   const [newDescription, setNewDescription] = useState('');
 
   const handleUpdateTodo = () => {
-    todoStore.updateTodo(todoId, newTitle, newDescription);
+    if(newTitle && newDescription){
+      todoStore.updateTodo(todoId, newTitle, newDescription);
     // Reset the form after updating the todo
     setNewTitle('');
     setNewDescription('');
-    handleCloseUpdate();
     window.alert("taks is updated ")
+    handleCloseUpdate();
+    }else{
+      window.alert("can not withoud task ")
+    }
+   
   };
  
  

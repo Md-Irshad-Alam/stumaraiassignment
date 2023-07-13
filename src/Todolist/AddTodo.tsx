@@ -44,6 +44,8 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
       setTitle('');
       setDec('');
       window.alert('task is added ')
+      setshowadd(false);
+
     } else {
       window.alert('Cannot add empty task');
     }
@@ -141,7 +143,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
          />
         <div className='flex flex-row gap-2 justify-center mt-2'>
         <button
-           onClick={() => handleAddTodo}
+           onClick={handleAddTodo}
            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
          >
            Add Task
