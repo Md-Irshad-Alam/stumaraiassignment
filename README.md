@@ -4,11 +4,11 @@
  
 # Overview
  The project is about the todo app, in this app, a user can perform the following things 
- ##add their tasks: 
+ ## add their tasks: 
  ## Update the tasks :
-  ##change the status of the tasks
-  ## Trace the complete and uncompleted  tasks
-  ## Delete the tasks as well. 
+ ## Change the status of the tasks
+ ## Trace the complete and uncompleted  tasks
+ ## Able to delete the tasks. 
   
 ## Note: - In this repo, there are multiple branches 
        ## Clint's side code is in the main branch
