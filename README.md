@@ -9,13 +9,15 @@
       /todo/toggle
       /todo/edit
       /todo/delete
-# Overview
+# Features
  The project is about the todo app, in this app, a user can perform the following things 
- add their tasks: 
- Update the tasks :
-  Change the status of the tasks
-  Trace the complete and uncompleted  tasks
- Able to delete the tasks. 
+* You can add  tasks
+* You can  update the tasks 
+ * You can Change the status of the tasks
+ * Trace the complete and uncompleted  tasks
+ * you can  delete the tasks if the task is not completed then the task will not be able to delete you have first completed the task  
+
+   
   
 ## Note: - In this repo, there are multiple branches 
        ## UI part code is in the main branch
