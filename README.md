@@ -1,7 +1,14 @@
 
 #Project Name
  ## Todo App
- 
+ ## API 
+  ## API :  https://test-osum.onrender.com/
+  ## deployed link: https://stumaraiassignment-f6rl.vercel.app/
+  # End point 
+      /todo/add
+      /todo/toggle
+      /todo/edit
+      /todo/delete
 # Overview
  The project is about the todo app, in this app, a user can perform the following things 
  add their tasks: 
@@ -11,11 +18,11 @@
  Able to delete the tasks. 
   
 ## Note: - In this repo, there are multiple branches 
-       ## Clint's side code is in the main branch
+       ## UI part code is in the main branch
         ## The backend Code is in the Master branch 
 
        
-## Note: I deployed the backend on  rednder.com the server will take multiple seconds to load please bare with the application 
+## Note: I have deployed the backend on render.com. Please note that the server may take a few seconds to load initially. Kindly bear with us while the application starts up and becomes fully operational.
 
 # Tech Stack
 # Client Side:
@@ -35,8 +42,6 @@
   6. Nodemon: Nodemon is a development tool that automatically restarts your Node.js application when changes are detected.
       It helps in speeding up the development process by eliminating the need to manually restart the server after code modifications.
    
-   These technologies work together to create a full-stack web application where Next.js handles the client-side rendering, Tailwind CSS provides styling capabilities, MST manages the application state, MongoDB acts as the database, Express.js handles server-side logic, and Nodemon facilitates the development process by auto-restarting the server.
-
 
 ## screenshots.
 
@@ -50,7 +55,6 @@
   
 API Documentation
 ## API 
- 
   ## https://test-osum.onrender.com/
   # End point 
       /todo/add
