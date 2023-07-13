@@ -112,7 +112,17 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
 
             <td className="border border-gray-300 px-2 py-1">
               <button
-                onClick={() => todoStore.deleteTodo(task._id)}
+                onClick={() =>
+                  {
+                    if(task.completed===false){
+                      window.alert("You can not delete uncompleted task ")
+                    }
+                    else{
+                      todoStore.deleteTodo(task._id)
+                    }
+                  }
+
+                   }
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
               >
                 Delete
