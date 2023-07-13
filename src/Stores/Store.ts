@@ -31,7 +31,9 @@ class TodoStoreImp {
         completed: false,
       };
 
-      const response = await axios.post("http://localhost:8085/todo/add", newItem);
+      const response = await axios.post("https://test-osum.onrender.com/todo/add", {
+        title, description
+      });
       const createdTodo = response.data;
 
       this.todos.push(createdTodo);
@@ -47,7 +49,7 @@ class TodoStoreImp {
   
       if (todo) {
         todo.completed = !todo.completed;
-        await axios.put(`http://localhost:8085/todo/toggle/${_id}`, todo);
+        await axios.put(`https://test-osum.onrender.com/todo/toggle/${_id}`, todo);
       } else {
         console.error(`Todo not found with _id: ${_id}`);
       }
@@ -64,7 +66,7 @@ class TodoStoreImp {
         todo.title = newTitle;
         todo.description = newDescription;
 
-        await axios.put(`http://localhost:8085/todo/edit/${_id}`, todo);
+        await axios.put(`https://test-osum.onrender.com/todo/edit/${_id}`, todo);
       }
     } catch (error) {
       console.error("Error updating todo:", error);
@@ -73,7 +75,7 @@ class TodoStoreImp {
 
   deleteTodo = async (_id: String) => {
     try {
-      await axios.delete(`http://localhost:8085/todo/remove/${_id}`);
+      await axios.delete(`https://test-osum.onrender.com/todo/remove/${_id}`);
 
       const index = this.todos.findIndex((item) => item._id === _id);
       if (index >= 0) {
@@ -88,7 +90,7 @@ class TodoStoreImp {
 
     if (typeof window !== "undefined") {
     try {
-      const response = await axios.get("http://localhost:8085/todo/getAll");
+      const response = await axios.get("https://test-osum.onrender.com/todo/getAll");
       this.todos = response.data;
       console.log(response.data)
     } catch (error) {

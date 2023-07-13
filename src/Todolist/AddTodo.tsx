@@ -17,6 +17,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
   const [selectedTodoId, setSelectedTodoId] = useState<String | null>(null);
   const [showadd, setshowadd] = useState(false)
   const [data, setdata] = useState([]);
+  const [isloding , setIsLoading] = useState(false);
 
   let staus = todoStore.status;
 
@@ -29,11 +30,34 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
     setSelectedTodoId(null);
   };
  
-
+  useEffect(() => {
+    // Simulate an asynchronous API call or store initialization
+    setTimeout(() => {
+      // Set the loading state to false when the API/store is ready
+      setIsLoading(false);
+    }, 2000);
+  }, []);
   
+  const handleAddTodo = () => {
+    if (title && desc) {
+      todoStore.addTodo(title, desc)
+      setTitle('');
+      setDec('');
+    } else {
+      window.alert('Cannot add empty task');
+    }
+  };
+
 
   return (
-    <div className="addtodo-container sm:m-auto max-w-sm min-w-min p-4">
+    <>
+    {
+    isloding ? (
+        (
+          <div>server is loding....</div>
+        )
+    ):(
+    <div className="addtodo-container sm:m-auto  sm:w-mdmax-w-sm min-w-min p-4">
       <p className='text-xl text-zinc-950 font-extrabold font-mono'>Schedule Plan  For Today</p>
     
     <div className='text- text-zinc-950 font-bold'>
@@ -41,7 +65,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
     <p>Remaining: {staus.remaining}</p>
     </div> 
 
-    <table className="w-lg border-collapse border max-w-sm  border-gray-300 mt-4 m-auto p-2 ">
+    <table className="w-sm border-collapse border   border-gray-300 mt-4 m-auto p-2 ">
       <thead className="w-full text-gray-100">
         <tr className='bg-slate-600'>
           <th className="border border-gray-300 px-2 py-1">Sr No.</th>
@@ -116,15 +140,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
          />
         <div className='flex flex-row gap-2 justify-center mt-2'>
         <button
-           onClick={() => {
-             if (title && desc) {
-               todoStore.addTodo(title, desc);
-               setTitle('');
-               setDec('');
-             } else {
-               window.alert('Cannot add empty task');
-             }
-           }}
+           onClick={() => handleAddTodo}
            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
          >
            Add Task
@@ -146,6 +162,10 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
     }
    </div>
   </div>
+    )
+    }
+    
+    </>
   );
 });
 
