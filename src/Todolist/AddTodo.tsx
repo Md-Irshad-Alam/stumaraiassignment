@@ -43,6 +43,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
       todoStore.addTodo(title, desc)
       setTitle('');
       setDec('');
+      window.alert('task is added ')
     } else {
       window.alert('Cannot add empty task');
     }
@@ -126,14 +127,14 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
         <div className="w-80 flex flex-col gap-3 rounded-md bg-gray-400 p-4 rounded-md">
         <input
            type="text"
-           placeholder="Enter your task title"
+           placeholder="Enter task title"
            value={title}
            onChange={(event) => setTitle(event.target.value)}
            className="p-2 border border-gray-300 rounded mb-2"
          />
          <input
            type="text"
-           placeholder="Enter your description"
+           placeholder="Enter task description"
            value={desc}
            onChange={(event) => setDec(event.target.value)}
            className="p-2 border border-gray-300 rounded mb-2"

@@ -17,6 +17,7 @@ const UpdateTodo: React.FC<UpdateTodoProps> = observer(({ todoId, handleCloseUpd
     setNewTitle('');
     setNewDescription('');
     handleCloseUpdate();
+    window.alert("taks is updated ")
   };
  
  
