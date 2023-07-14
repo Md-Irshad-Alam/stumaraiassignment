@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import  todoStore  from '../Stores/Store'
 import UpdateTodo from './UpdateTodo';
+import TaskDetails from './ViewTaks';
 
 
 interface TodoListProps {
@@ -18,7 +19,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
   const [showadd, setshowadd] = useState(false)
   const [data, setdata] = useState([]);
   const [isloding , setIsLoading] = useState(false);
-
+  const [showview, setcloseview] = useState<String | null>(null);
   let staus = todoStore.status;
 
 
@@ -29,15 +30,27 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
   const handleCloseUpdate = () => {
     setSelectedTodoId(null);
   };
+
+  const handleViewClick = (taskId: String) => {
+    setcloseview(taskId);
+  };
+
+  const handleCloseView = () => {
+    setcloseview(null);
+  };
+
  
-  useEffect(() => {
-    // Simulate an asynchronous API call or store initialization
-    setTimeout(() => {
-      // Set the loading state to false when the API/store is ready
-      setIsLoading(false);
-    }, 2000);
-  }, []);
   
+  const handledelete =(taskId:String)=>{
+    console.log(taskId)
+      if(staus.completed){
+          window.alert("you can deleted uncompleted taks ")
+      }else{
+        
+
+      }
+
+  }
   const handleAddTodo = () => {
     if (title && desc) {
       todoStore.addTodo(title, desc)
@@ -54,12 +67,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
 
   return (
     <>
-    {
-    isloding ? (
-        (
-          <div>server is loding....</div>
-        )
-    ):(
+    
     <div className="addtodo-container sm:m-auto  sm:w-mdmax-w-sm min-w-min p-4">
       <p className='text-xl text-zinc-950 font-extrabold font-mono'>Schedule Plan  For Today</p>
     
@@ -75,25 +83,46 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
           <th className="border border-gray-300 px-2 py-1">Title</th>
           <th className="border border-gray-300 px-2 py-1">Description</th>
           <th className="border border-gray-300 px-2 py-1">Status</th>
+          <th className="border border-gray-300 px-2 py-1">Toggle status</th>
+          <th className="border border-gray-300 px-2 py-1">View Details</th>
           <th className="border border-gray-300 px-2 py-1">Update</th>
           <th className="border border-gray-300 px-2 py-1">Delete</th>
         </tr>
       </thead>
       <tbody className='w-full text-gray-500'>
-      {todoStore.todos.map((task, id) => (
+     
+    
+      {
+        todoStore.todos.map((task, id) => (
           <tr key={id} className="hover:bg-gray-100">
             <td className="border border-gray-300 px-2 py-1">{id}</td>
             <td className="border border-gray-300 px-2 py-1">{task.title}</td>
             <td className="border border-gray-300 px-2 py-1">{task.description}</td>
             <td
               className="border border-gray-300 px-2 py-1 cursor-pointer hover:bg-gray-200"
-              onClick={() => {
-               console.log(task._id)
-                todoStore.toggleStatus(task._id)
-              }}
             >
               {task.completed ? 'Completed' : 'Pending'}
             </td>
+            <td>
+              <button onClick={()=> 
+                todoStore.toggleStatus(task._id)} className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                  Toggle</button>
+            </td>
+    
+            <td
+                className="border  border-gray-600 px-2 py-1 cursor-pointer hover:bg-gray-600"
+              >
+                {showview === task._id ? (
+                  <TaskDetails taskId={task._id} handleView={handleCloseView} />
+                ) : (
+                  <button
+                    onClick={() => handleViewClick(task._id)}
+                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                  >
+                    View
+                  </button>
+                )}
+              </td>
 
             <td
                 className="border  border-gray-600 px-2 py-1 cursor-pointer hover:bg-gray-600"
@@ -112,17 +141,20 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
 
             <td className="border border-gray-300 px-2 py-1">
               <button
-                onClick={() =>
-                  {
-                    if(task.completed===false){
-                      window.alert("You can not delete uncompleted task ")
-                    }
-                    else{
+                onClick={()=> {
+                  if(task.completed==false){
+                      window.alert("you can't delete uncomplete taks ")
+                  }else{
+                    if(todoStore.todos.length >0){
                       todoStore.deleteTodo(task._id)
+
+                    }else{
+                      window.alert("you mush have one task")
                     }
                   }
 
-                   }
+                }}
+                 
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
               >
                 Delete
@@ -175,8 +207,7 @@ const AddTodo: React.FC<TodoListProps> = observer(({todoStore}) => {
     }
    </div>
   </div>
-    )
-    }
+   
     
     </>
   );

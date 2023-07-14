@@ -5,7 +5,11 @@ interface TodoItems {
   _id: String;
   title: string;
   description: string;
+  statusDate?: string;
   completed: boolean;
+
+  
+  
 }
 
 class TodoStoreImp {
@@ -18,6 +22,8 @@ class TodoStoreImp {
       updateTodo: action,
       deleteTodo: action,
       status: computed,
+      viewStatus:action
+    
     });
     this.loadTasks();
   }
@@ -42,6 +48,19 @@ class TodoStoreImp {
     }
   };
 
+  viewStatus = (id: String) => {
+    const todo = this.todos.find((item) => item._id === id);
+  
+    if (todo) {
+      if (todo.completed) {
+        todo.statusDate = new Date().toLocaleDateString();
+      } else {
+        todo.statusDate = "Incomplete";
+      }
+    }
+  };
+  
+
   toggleStatus = async (_id: String) => {
     try {
       const todo = this.todos.find((item) => item._id === _id);
@@ -50,6 +69,7 @@ class TodoStoreImp {
       if (todo) {
         todo.completed = !todo.completed;
         await axios.put(`https://test-osum.onrender.com/todo/toggle/${_id}`, todo);
+        this.viewStatus(_id);
       } else {
         console.error(`Todo not found with _id: ${_id}`);
       }
@@ -90,9 +110,11 @@ class TodoStoreImp {
 
     if (typeof window !== "undefined") {
     try {
-      const response = await axios.get("https://test-osum.onrender.com/todo/getAll");
+   
+      const response = await axios.get("https://test-osum.onrender.com/todo/getAll")
       this.todos = response.data;
-      console.log(response.data)
+     
+      
     } catch (error) {
       console.error("Error loading tasks:", error);
     }

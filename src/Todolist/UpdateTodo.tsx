@@ -44,6 +44,7 @@ const UpdateTodo: React.FC<UpdateTodoProps> = observer(({ todoId, handleCloseUpd
           onChange={(e) => setNewDescription(e.target.value)}
           className="p-2 border border-gray-300 rounded mb-2"
         />
+        
         <div className="flex justify-end">
           <button
             onClick={handleUpdateTodo}
